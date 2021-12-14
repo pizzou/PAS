@@ -1,0 +1,6 @@
+<aura:component controller="SearchController">
+  <aura:handler name="BookEvent" event="c:BookSearchEvent" action="{!c.handleCompEvent}" />
+    <aura:attribute name="bookList" type="Book__c" />
+    <c:BookSearch />
+    <c:BookListComp recordList="{!v.bookList}"/> 
+</aura:component>

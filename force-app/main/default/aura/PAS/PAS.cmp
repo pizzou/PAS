@@ -1,0 +1,417 @@
+<aura:component
+  implements="lightning:availableForFlowScreens,force:hasRecordId,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,forceCommunity:layout,force:appHostable,lightning:actionOverride,lightning:isUrlAddressable"
+  access="global"
+  controller="BookController"
+>
+  <!--  <aura:attribute name="searchKey" type="String"/> -->
+
+  <aura:handler
+    name="BookEvent"
+    event="c:BookSearchEvent"
+    action="{!c.handleCompEvent}"
+  />
+    <aura:attribute name="bookId" type="Book__c" />
+ <!-- <aura:attribute name="bookList" type="Object" />-->
+  <!-- <aura:handler event="aura:locationChange" action="{!c.locationChange}"/> -->
+  <aura:attribute name="selTabId" type="String" default="1" />
+
+  <aura:attribute name="Manuscript" type="String" default="2" />
+  <aura:attribute
+    name="ManuscriptValue"
+    type="List"
+    default="[
+    {'label': 'Yes', 'value': 'option1'},
+    {'label': 'No', 'value': 'option2'}                                                   
+    ]"
+  />
+
+  <aura:attribute name="eBook-Cover" type="String" default="2" />
+  <aura:attribute
+    name="eBookCoverValue"
+    type="List"
+    default="[
+    {'label': 'Use Cover Creator to make your book cover', 'value': 'option1'},
+    {'label': 'Upload cover already have (JPG/TIFF only)', 'value': 'option2'}                                                   
+    ]"
+  />
+
+  
+  <aura:attribute
+    name="filetype"
+    type="List"
+    default="['.pdf', '.jpg', '.jpeg', '.docx']"
+  />
+  <aura:attribute name="multiple" type="Boolean" default="true" />
+  <aura:attribute name="disabled" type="Boolean" default="true" />
+  <aura:attribute name="recordId" type="String" />
+
+  <!-- <aura:attribute name="category" type="String" default=""/>
+     <aura:attribute name="option1" type="List" default="[
+    {'label': 'Business and Economy', 'value': 'Business and Economy'},
+    {'label': 'Computer and Technology', 'value': 'Computer and Technology'},
+    {'label': 'Engineering', 'value': 'Engineering'},
+    {'label': 'Data Science', 'value': 'Data Science'},                                                                                  
+    ]"/> -->
+
+  <!--<div>
+        <c:HeaderComponent TagLine="Book Explorer" />
+    </div>
+    <br/>
+    <br/> 
+   <<div>
+        <c:BookSearch />
+    </div> 
+    <br/>
+    <br/>
+    <br />
+    <div>
+    
+        <c:BookListComp recordList ="{!v.bookList}" />
+    </div>-->
+  <lightning:progressIndicator currentStep="{!v.selTabId}" type="path">
+    <lightning:progressStep label="Start" value="1" />
+    <lightning:progressStep label="Book Contents" value="2" />
+    <lightning:progressStep label="Details" value="3" />
+    <lightning:progressStep label="Price and payee" value="4" />
+  </lightning:progressIndicator>
+
+  <div class="slds-p-around_small">
+    <lightning:card title="Create Book in PAS system">
+      <lightning:tabset variant="scoped" selectedTabId="{!v.selTabId}">
+        <lightning:tab label="Start" id="1" title="Book Details">
+          <h1> <b>Select a Product Type</b> </h1>
+
+          <fieldset class="slds-form-element">
+            <legend
+              class="slds-form-element__legend slds-form-element__label"
+            ></legend>
+            <div class="slds-form-element__control">
+              <div class="slds-radio_button-group">
+                <span class="slds-button slds-radio_button">
+                  <input
+                    type="radio"
+                    name="example-unique-name-99"
+                    id="example-unique-id-105"
+                    value="friday"
+                  />
+                  <label
+                    class="slds-radio_button__label"
+                    for="example-unique-id-105"
+                  >
+                    <span class="slds-radio_faux">Printed Book</span>
+                    <div class="slds-col slds-size_1-0f-3">
+                      <figure class="slds-image slds-image--card">
+                        <a
+                          href="javascript:void(0);"
+                          class="slds-image__crop  slds-image__crop--16-by-9"
+                        >
+                          <img src="{!$Resource.eBook}" />
+                        </a>
+                      </figure>
+                    </div>
+                    <!--  <p>Hardcover or paperback book using a wide range of paper, color, and binding options</p> -->
+                  </label>
+                </span>
+                <span class="slds-button slds-radio_button">
+                  <input
+                    type="radio"
+                    name="example-unique-name-99"
+                    id="example-unique-id-102"
+                    value="tuesday"
+                  />
+                  <label
+                    class="slds-radio_button__label"
+                    for="example-unique-id-102"
+                  >
+                    <span class="slds-radio_faux">Photo Book</span>
+                  </label>
+                </span>
+                <span class="slds-button slds-radio_button">
+                  <input
+                    type="radio"
+                    name="example-unique-name-99"
+                    id="example-unique-id-103"
+                    value="wednesday"
+                  />
+                  <label
+                    class="slds-radio_button__label"
+                    for="example-unique-id-103"
+                  >
+                    <span class="slds-radio_faux">Comic Book</span>
+                    <figure class="slds-image slds-image--card">
+                      <a
+                        href="javascript:void(0);"
+                        class="slds-image__crop  slds-image__crop--16-by-9"
+                      >
+                        <img src="{!$Resource.comic}" />
+                      </a>
+                    </figure>
+                  </label>
+                </span>
+                <span class="slds-button slds-radio_button">
+                  <input
+                    type="radio"
+                    name="example-unique-name-99"
+                    id="example-unique-id-104"
+                    value="thursday"
+                  />
+                  <label
+                    class="slds-radio_button__label"
+                    for="example-unique-id-104"
+                  >
+                    <span class="slds-radio_faux">Magazine Book</span>
+                    <figure class="slds-image slds-image--card">
+                      <a
+                        href="javascript:void(0);"
+                        class="slds-image__crop  slds-image__crop--16-by-9"
+                      >
+                        <img src="{!$Resource.Magazine}" />
+                      </a>
+                    </figure>
+                  </label>
+                </span>
+                <span class="slds-button slds-radio_button">
+                  <input
+                    type="radio"
+                    name="example-unique-name-99"
+                    id="example-unique-id-105"
+                    value="friday"
+                  />
+                  <label
+                    class="slds-radio_button__label"
+                    for="example-unique-id-105"
+                  >
+                    <span class="slds-radio_faux">Calendar Book</span>
+                    <figure class="slds-image slds-image--card">
+                      <a
+                        href="javascript:void(0);"
+                        class="slds-image__crop  slds-image__crop--16-by-9"
+                      >
+                        <img src="{!$Resource.calendar}" />
+                      </a>
+                    </figure>
+                  </label>
+                </span>
+              </div>
+            </div>
+          </fieldset>
+
+          <br /> <br /> <br />
+          <div class="row">
+            <h2 class="header"> <b> Book Details</b> </h2>
+            <lightning:recordEditForm
+              aura:id="accountRecordCreator"
+              onsuccess="{!c.handleSuccess}"
+              objectApiName="Book__c"
+            >
+              <lightning:messages />
+              <div aura:id="stepOne">
+                <lightning:inputField fieldName="Book_Name__c" />
+                <lightning:inputField fieldName="Book_Title__c" />
+                <lightning:inputField fieldName="Book_Subtitle__c" />
+                <lightning:inputField fieldName="Book_Category__c" />
+                <lightning:inputField fieldName="Production_Cost__c" />
+                <lightning:inputField fieldName="Book_Language__c" />
+                <lightning:inputField fieldName="Description__c" />
+              </div>
+            </lightning:recordEditForm>
+          </div>
+          <br /> <br /> <br />
+
+          <div aura:id="output" class="slds-box editor slds-text-longform">
+            <h1 class="slds-m-top_large slds-text-heading_medium"
+              ><b>Description</b></h1
+            >
+            <p
+              >Summarize your book. This will be your product description on
+              Amazon, so customers can learn more about your book</p
+            >
+
+            <lightning:inputRichText value="{!v.myVal}" />
+          </div>
+          <div class="slds-float_left">
+            <lightning:button
+              label="Next"
+              onclick="{!c.next}"
+              variant="brand"
+            />
+          </div>
+        </lightning:tab>
+
+        <lightning:tab label="Book Contents" id="2" title="Manascript">
+          <div>
+            <h1
+              ><b>Manuscript</b>
+              <p
+                >Please read our PAS Content Guidelines and upload a manuscript
+                containing interior content for your PAS eBook</p
+              >
+            </h1>
+            <!--  <lightning:radioGroup name="myManuscript"
+                          
+                          options="{! v.ManuscriptValue }"
+                          value="{! v.value }"
+                          type="radio"
+                          required="true"
+                          class="customRadioCls"          /> -->
+          </div>
+          <br /> <br /> <br />
+          <div>
+            <lightning:fileUpload
+              label="Attach manuscript"
+              name="Manuscript"
+              multiple="true"
+              accept="{!v.filetype}"
+              recordId="{!v.recordId}"
+              onuploadfinished="{!c.handleUploadFinished}"
+            />
+          </div>
+          <div>
+            <aura:iteration items="{!v.items}" var="file">
+              <lightning:pill
+                label="{!file.label}"
+                name="{!file.name}"
+                onremove="{!c.handleRemove}"
+              />
+            </aura:iteration>
+          </div>
+
+          <br /> <br /> <br />
+          <div>
+            <h1> <b>PAS eBook Covere</b> </h1>
+            <lightning:radioGroup
+              name="myManuscript"
+              options="{! v.eBookCoverValue }"
+              value="{! v.value }"
+              type="radio"
+              required="true"
+              class="customRadioCls"
+            />
+
+            <div>
+              <br /> <br /> <br />
+              <lightning:fileUpload
+                label="No cover uploaded"
+                name="Launch creator"
+                multiple="true"
+                accept="{!v.filetype}"
+                recordId="{!v.recordId}"
+                onuploadfinished="{!c.handleUploadFinished}"
+              />
+            </div>
+            <div>
+              <aura:iteration items="{!v.items}" var="file">
+                <lightning:pill
+                  label="{!file.label}"
+                  name="{!file.name}"
+                  onremove="{!c.handleRemove}"
+                />
+              </aura:iteration>
+            </div>
+          </div>
+
+          <br /> <br /> <br />
+          <div class="row">
+            <h2 class="header"> <b> PAS eBook ISBN</b> </h2>
+            <lightning:input name="PAS eBook ISBN " label="PAS eBook ISBN " />
+            <lightning:input name="Publsiher " label="Publisher " />
+          </div>
+          <br /> <br /> <br />
+
+          <div class="slds-float_left">
+            <lightning:button
+              label="Previous"
+              onclick="{!c.previous}"
+              variant="brand"
+            />
+          </div>
+          <div class="slds-float_right">
+            <lightning:button
+              label="Next"
+              onclick="{!c.next}"
+              variant="brand"
+            />
+          </div>
+        </lightning:tab>
+
+        <lightning:tab label="Details" id="3" title="Details">
+          <div aura:id="output" class="slds-box editor slds-text-longform">
+            <div>
+              <p>
+                <b>Promotional Information and Book Details</b>
+
+                <br /> <br /> <br /> We need to add a few more details to
+                complete your Project and finalize everything.
+              </p>
+            </div>
+            <h1 class="slds-m-top_large slds-text-heading_medium"
+              ><b>Project Details</b></h1
+            >
+            <p
+              >Provide all important metadata to help readers find your book.</p
+            >
+
+            <lightning:inputRichText value="{!v.myVal}" />
+          </div>
+          <div aura:id="output" class="slds-box editor slds-text-longform">
+            <h1 class="slds-m-top_large slds-text-heading_medium"
+              ><b>Contributor Notes (Optional)</b></h1
+            >
+
+            <lightning:inputRichText value="{!v.myVal}" />
+          </div>
+          <div aura:id="output" class="slds-box editor slds-text-longform">
+            <h1 class="slds-m-top_large slds-text-heading_medium"
+              ><b>Table of Contents (Optional)</b></h1
+            >
+
+            <lightning:inputRichText value="{!v.myVal}" />
+          </div>
+          <div class="row">
+            <h2 class="header"> <b> BASAC Main Category</b> </h2>
+            <lightning:input name="bookDetails" label="BASAC Main Category" />
+            <br /> <br />
+            <h2 class="header"> <b> BISAC Category 2 (Recommended)</b> </h2>
+            <lightning:input name="bookDetails" label="Basic category2" />
+            <h2 class="header"> <b> BISAC Category 3 (Recommended)</b> </h2>
+            <lightning:input name="bookDetails" label="Basic category3" />
+            <h2 class="header"> <b> Keywords</b> </h2>
+            <lightning:input name="Keywords" label="Keywords" />
+          </div>
+          <div class="slds-float_left">
+            <lightning:button
+              label="Previous"
+              onclick="{!c.previous}"
+              variant="brand"
+            />
+          </div>
+          <div class="slds-float_right">
+            <lightning:button
+              label="Next"
+              onclick="{!c.next}"
+              variant="brand"
+            />
+          </div>
+        </lightning:tab>
+
+        <lightning:tab label="Price and payee" id="4" title="Price">
+          <div class="slds-float_left">
+            <lightning:button
+              label="Previous"
+              onclick="{!c.previous}"
+              variant="brand"
+            />
+          </div>
+          <div class="slds-float_right">
+            <lightning:button
+              label="Save"
+              type="submit"
+              variant="brand"
+              onclick="{!c.doSave}"
+            />
+          </div>
+        </lightning:tab>
+      </lightning:tabset>
+    </lightning:card>
+  </div>
+</aura:component>

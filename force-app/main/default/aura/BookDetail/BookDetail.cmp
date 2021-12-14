@@ -1,0 +1,22 @@
+<aura:component >
+
+     <aura:attribute name="bookId" type="String" />
+    <aura:attribute name="bookName" type="String" />
+    <lightning:navigation aura:id="navigation" />
+	<div class="slds-p-around_small" style="height: 640px; background-color:darkseagreen">
+       
+        <div aura:id="recordViewForm">
+        <lightning:recordForm 
+                              recordId="{!v.bookId}" 
+                              objectApiName="Book__c"
+                              layoutType="Full" 
+                              columns="2"
+                              mode="readonly" />
+        </div>
+        <div class="slds-p-around_small">
+        	<lightning:button value="Create Book" label="Create Book" variant="brand" 
+                              onclick="{!c.createBook}" />
+        </div>
+       
+    </div>
+</aura:component>

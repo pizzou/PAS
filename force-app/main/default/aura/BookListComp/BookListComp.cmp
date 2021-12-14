@@ -1,0 +1,72 @@
+<aura:component >
+ <aura:attribute name="recordList" type="Book__c" />
+    <div><br/>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                   <thead>
+                        <tr>
+                            <th class="slds-text-title_caps" scope="col">                                
+                                <div class="slds-truncate" title="Book Id">Book Id</div>
+                            </th>
+                            <th class="slds-text-title_caps" scope="col">                                
+                                <div class="slds-truncate" title="Book Title">Book Title</div>
+                            </th>
+                             <th class="slds-text-title_caps" scope="col">
+                                 <div class="slds-truncate" title="Book Subtitle">Book Subtitle</div>
+                           	</th>
+                            <th class="slds-text-title_caps" scope="col">                                
+                                <div class="slds-truncate" title="Book Language">Book Language</div>
+                            </th>
+                             <th class="slds-text-title_caps" scope="col">
+                                 <div class="slds-truncate" title="Category Id">Category Id</div>
+                           	</th>
+                            <th class="slds-text-title_caps" scope="col">                                
+                                <div class="slds-truncate" title="Editing_Cost">Editing Cost</div>
+                            </th>
+                            <th class="slds-text-title_caps" scope="col">                                
+                                <div class="slds-truncate" title="ISBN">ISBN</div>
+                            </th>
+                             <th class="slds-text-title_caps" scope="col">
+                                 <div class="slds-truncate" title="Product Type">Product Type</div>
+                           	</th>
+                            
+                        </tr>
+                    </thead>
+                     <tbody>
+                        <aura:iteration items="{!v.recordList}" var="contObj"  indexVar="index"> 
+                            <tr>
+                                <td data-label="Book_Id" scope="row">
+                                    <div class="slds-truncate" title="Book_Id">{!contObj.Id} </div>
+                                </td>
+                                                            	<td data-label="Book_Title" scope="row">
+                                    <div class="slds-truncate" title="Book_Title">{!contObj.Book_Title__c} </div>
+                                </td>
+                                <td data-label="Book Subtitle">
+                                    <div class="slds-truncate" title="Book Subtitle">{!contObj.Book_Subtitle__c}</div> 
+                                </td>
+                            </tr>
+                                <td data-label="Book Language" scope="row">
+                                    <div class="slds-truncate" title="Book_Language">{!contObj.Book_Language__c} </div>
+                                </td>
+
+                            <tr>
+                            	<td data-label="Category_Id" scope="row">
+                                    <div class="slds-truncate" title="Category_Id">{!contObj.Category_Id__c} </div>
+                                </td>
+                                <td data-label="Editing_Cost">
+                                    <div class="slds-truncate" title="Editing_Cost">{!contObj.Editing_Cost__c}</div> 
+                                </td>
+                            </tr>
+                            <tr>
+                            	<td data-label="ISBN" scope="row">
+                                    <div class="slds-truncate" title="Book ISBN">{!contObj.ISBN__c} </div>
+                                </td>
+                                <td data-label="Product_Type">
+                                    <div class="slds-truncate" title="Product_Type">{!contObj.Product_Type__c}</div> 
+                                </td>
+                            </tr>
+                            
+                        </aura:iteration>
+                    </tbody>
+                </table>
+            </div>
+</aura:component>

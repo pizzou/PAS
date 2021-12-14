@@ -1,0 +1,14 @@
+<aura:component implements ="lightning:availableForFlowScreens,force:hasRecordId,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,force:appHostable"
+                access="global" controller="BookClass">
+	
+     <div>
+        <c:HeaderComponent TagLine="Book Explorer" />
+    </div>
+    <br />
+    <br/>
+    
+    <div>
+        <c:BookSearch />
+    </div>
+    
+</aura:component>

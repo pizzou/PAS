@@ -1,0 +1,84 @@
+<aura:component controller="BookClass">
+  <aura:attribute name="bookObj" type="Book__c" default="{'sobjectType':'Book__c',
+                                                             'Book_Title__c':'',
+                                                             'Book_Subtitle__c':''}"/>
+                                                              
+    
+    <aura:attribute name="bookId" type="String"/>    
+    <aura:attribute name="bookList" type="Book__c[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.showBooks}"/>
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+      <div class="slds-media__figure">
+        <span class="slds-icon_container slds-icon-standard-account" title="account">            
+          <lightning:icon iconName="standard:contact" alternativeText="Book" />
+        </span>
+      </div>
+     <div class="slds-media__body">
+        <h2 class="slds-card__header-title">
+          <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Accounts">
+            <span>Book</span>
+          </a>
+        </h2>
+      </div>
+      <div class="slds-no-flex">
+        <lightning:button variant="brand" label="Save" title="Save" onclick="{! c.doSave }" />
+      </div>
+    </header>
+  </div>        
+    	<div class="slds-card__body  slds-card__body_inner">
+        	<lightning:input value="{!v.bookObj.Book_Title__c}" label="Book Title" placeholder="enter first Name..."/>
+        	<lightning:input  value="{!v.bookObj.Book_Subtitle__c}" label="Book SubTitle" placeholder="enter last Name..." />
+    		
+        	
+            <div><br/>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                   <thead>
+                        <tr>
+                            <th class="slds-text-title_caps" scope="col">                                
+                                <div class="slds-truncate" title="Book_Title">Book_Title</div>
+                            </th>
+                             <th class="slds-text-title_caps" scope="col">
+                                 <div class="slds-truncate" title="Book_SubTitle__c">Book_SubTitlE</div>
+                           	</th>
+                        </tr>
+                    </thead>
+                     <tbody>
+                        <aura:iteration items="{!v.bookList}" var="booObj"  indexVar="index"> 
+                            <tr>
+                            	<td data-label="First Name" scope="row">
+                                    <div class="slds-truncate" title="Book_Title">{!booObj.Book_Title__c} </div>
+                                </td>
+                                <td data-label="Last Name">
+                                    <div class="slds-truncate" title="Book_SubTitle">{!booObj.Book_Subtitle__c}</div> 
+                                </td>
+                            </tr>
+                            
+                        </aura:iteration>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <footer class="slds-card__footer">
+            <div class="demo-only" style="height: 4rem;">
+  <div class="slds-notify_container slds-is-relative">
+    <div class="slds-notify slds-notify_toast slds-theme_success" role="status">    
+     
+        <lightning:icon iconName="utility:success" alternativeText="success"  aria-hidden="true"/>
+    
+      <div class="slds-notify__content">
+        <h2 class="slds-text-heading_small "><a href="javascript:void(0);">Book Id :{!v.bookId}  </a> Book was created.</h2>
+      </div>
+      <div class="slds-notify__close">
+        <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close">
+            <lightning:icon iconName="utility:close" alternativeText="close"/>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+    				  
+  		</footer>
+    </article>
+</aura:component>

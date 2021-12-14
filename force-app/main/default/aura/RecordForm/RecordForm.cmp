@@ -1,0 +1,11 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global" >
+
+    
+    <lightning:recordViewForm recordId ="{!v.recordId}" objectApiName="Book__c" >
+        <div class="slds-box">
+        <lightning:outputField fieldName="Book_Title__c" />
+        <lightning:outputField fieldName="Book_Subtitle__c" />
+        <lightning:outputField fieldName="Book_EditCost__c" />
+        </div>
+    </lightning:recordViewForm>
+</aura:component>

@@ -1,0 +1,11 @@
+<aura:component controller="AccountList">
+<aura:attribute name="accountListt" type="Account[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:iteration items="{!v.accountList}" var="con" >
+    <lightning:card footer="Card Footer" title="Hello">
+        {!con.Name}{!con.Id} <br/>
+        {!con.Email} {!con.Phone}
+        </lightning:card>
+    </aura:iteration>
+    
+</aura:component>

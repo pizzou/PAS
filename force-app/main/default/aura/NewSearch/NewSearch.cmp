@@ -1,0 +1,58 @@
+<aura:component implements ="lightning:availableForFlowScreens,force:hasRecordId,force:hassobjectName,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,force:appHostable"
+                access="global" controller="BookControllerr">
+    <aura:attribute name="accounts" type="List" />
+    <aura:attribute name="bookId" type="String"/>
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <aura:attribute name="bookvalue" type="string"/>
+    
+    
+    <aura:attribute name="key" type="String" /> 
+    
+    <c:LanguageSwitcher />
+   <!-- <aura:handler name="init" value="{!this}" action="{!c.doInit}" />    -->  
+    <c:HeaderComponent TagLine="Book Explorer" />
+    <lightning:input name="inline-search-input"
+                         label="Book Search"
+                         type="search"
+                         variant="label-hidden"
+                         aura:id="searchKey" onchange="{!c.searchKeyChange}" placeholder="Search" />          
+    
+  <div class="slds-p-around_small">
+    <div class="slds-grid slds-wrap">
+        <aura:iteration items="{!v.accounts}" var="item">
+        
+            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+            <lightning:card title="{!item.Book_Title__c}" footer="{!item.Book_Name__c}"
+                            iconName="custom:custom55">
+                <aura:set attribute="actions">
+                    <lightning:button name="{!item.Id}" label="Details" variant="brand"
+                                      onclick="{!c.showInfo}"/>
+                
+                </aura:set>
+                
+                <p class="slds-p-horizontal_small">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-3">
+                            
+              Id:  {!item.Name}&nbsp;&nbsp; <br/>
+              Name: {!item.Book_Name__c} &nbsp;&nbsp;<br/>
+              Book-Titkle:  {!item.Book_Title__c}&nbsp;&nbsp;<br/>
+                <!--{!item.Book_Subtitle__c}&nbsp;&nbsp;
+                {!item.Book_Language__c}&nbsp;&nbsp;
+                {!item.Book_Category__c}&nbsp;&nbsp;
+                {!item.ISBN__c}&nbsp;&nbsp;
+                {!item.Production_Cost__c}&nbsp;&nbsp;-->
+                   </div>
+                </div>
+                </p>
+                </lightning:card>
+                
+            </div>
+        
+        </aura:iteration>
+        </div>
+    <!-- <c:BookDetail bookId="{!v.bookvalue}" />-->
+    </div>
+    
+   
+</aura:component>

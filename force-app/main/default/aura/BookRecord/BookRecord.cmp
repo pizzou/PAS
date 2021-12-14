@@ -1,0 +1,20 @@
+<aura:component >
+	<lightning:card title="Create Book">
+    
+        <lightning:recordEditForm aura:id="bookForm" objectApiName="Book__c"
+                                 onload="{!c.handleOnLoad}"
+                                 onsubmit="{!c.handleOnSubmit}"
+                                 onsuccess="{!c.handleOnSuccess}"
+                                 onerror="{!c.handleOnError}">
+        
+            <lightning:messages/>
+            <lightning:layout>
+            
+                <lightning:layoutitem padding="aroung-small">
+                    <!-- <lightning:inputField fieldName="Book_Title__c"/>-->
+                </lightning:layoutitem>
+            </lightning:layout>
+        </lightning:recordEditForm>
+        
+    </lightning:card>
+</aura:component>
